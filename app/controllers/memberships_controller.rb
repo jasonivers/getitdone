@@ -1,5 +1,5 @@
 class MembershipsController < ApplicationController
-  before_action :set_membership, only: %i[ show edit update destroy ]
+  before_action :set_owner, only: %i[ show edit update destroy ]
 
   # GET /memberships or /memberships.json
   def index
@@ -60,6 +60,16 @@ class MembershipsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_membership
       @membership = Membership.find(params[:id])
+    end
+
+    def set_owner
+      set_membership
+      @owner = @membership.owner
+      render(json: { errors: ['You do not have access to that'] }, status: 403) and return if !current_user || @owner.memberships.find_by_user_id(current_user.id).blank?
+      project_id = params.fetch(:project_id, :nil)
+      render(json: { errors: ['You do not have access to that'] }, status: 403) and return if @membership.owner_type != 'Project' || @membership.owner_id != project_id
+      task_list_id = params.fetch(:task_list_id, nil)
+      render(json: { errors: ['You do not have access to that'] }, status: 403) and return if @membership.owner_type != 'TaskList' || @membership.owner_id != task_list_id
     end
 
     # Only allow a list of trusted parameters through.
