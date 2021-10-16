@@ -21,7 +21,7 @@ class TaskListsController < ApplicationController
 
   # POST /task_lists or /task_lists.json
   def create
-    @task_list = TaskList.new(task_list_params)
+    @task_list = TaskList.new(task_list_params.merge({created_by: current_user.id, updated_by: current_user.id}))
 
     respond_to do |format|
       if @task_list.save
@@ -37,7 +37,7 @@ class TaskListsController < ApplicationController
   # PATCH/PUT /task_lists/1 or /task_lists/1.json
   def update
     respond_to do |format|
-      if @task_list.update(task_list_params)
+      if @task_list.update(task_list_params.merge({updated_by: current_user.id}))
         format.html { redirect_to @task_list, notice: "Task list was successfully updated." }
         format.json { render :show, status: :ok, location: @task_list }
       else
@@ -64,6 +64,6 @@ class TaskListsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def task_list_params
-      params.require(:task_list).permit(:project_id, :name, :description, :created_by, :updated_by)
+      params.require(:task_list).permit(:project_id, :name, :description)
     end
 end

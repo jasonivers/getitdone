@@ -21,7 +21,7 @@ class ProjectsController < ApplicationController
 
   # POST /projects or /projects.json
   def create
-    @project = Project.new(project_params)
+    @project = Project.new(project_params.merge({created_by: current_user.id, updated_by: current_user.id}))
 
     respond_to do |format|
       if @project.save
@@ -37,7 +37,7 @@ class ProjectsController < ApplicationController
   # PATCH/PUT /projects/1 or /projects/1.json
   def update
     respond_to do |format|
-      if @project.update(project_params)
+      if @project.update(project_params.merge({updated_by: current_user.id}))
         format.html { redirect_to @project, notice: "Project was successfully updated." }
         format.json { render :show, status: :ok, location: @project }
       else
@@ -64,6 +64,6 @@ class ProjectsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def project_params
-      params.require(:project).permit(:name, :description, :created_by, :updated_by)
+      params.require(:project).permit(:name, :description)
     end
 end
