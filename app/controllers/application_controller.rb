@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
   before_action :authenticate_user!
 
-  def react_rails_test
+  def index
   end
 end
