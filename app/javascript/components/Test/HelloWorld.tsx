@@ -13,14 +13,15 @@ const mapStateToProps = (state) => {
 // TODO - testStore should have its own interface or type imported from within the state/Test folder
 // That should be the standard for all sub-stores going forwards - this current way of doing things sucks
 interface Props<A extends Action = AnyAction> {
-  dispatch: Dispatch<A>,
+  dispatch: Dispatch<A>;
   testStore: {
-    message: string,
-  },
+    message: string;
+    error: string;
+  };
 }
 
 interface State {
-  newMessage: string,
+  newMessage: string;
 }
 
 class HelloWorld extends React.Component<Props, State> {
@@ -41,23 +42,32 @@ class HelloWorld extends React.Component<Props, State> {
     this.setState({
       newMessage: e.target.value,
     });
-  }
+  };
 
   submitNewMessage = (e) => {
     e.preventDefault();
 
-    this.actions.updateMessage(this.state.newMessage);
+    this.actions.updateMessageRequest(this.state.newMessage);
     this.setState({
       newMessage: "",
     });
-  }
+  };
 
-  render () {
+  render() {
+    const { error } = this.props.testStore;
+
     return (
       <div>
         <h1>{this.props.testStore.message}</h1>
-        <input type="text" value={this.state.newMessage} onChange={this.handleNewMessageInput} />
-        <button type="submit" onClick={this.submitNewMessage}>Update Message</button>
+        <input
+          type="text"
+          value={this.state.newMessage}
+          onChange={this.handleNewMessageInput}
+        />
+        <button type="submit" onClick={this.submitNewMessage}>
+          Update Message
+        </button>
+        {error && <h2 style={{ color: "red" }}>***{error}***</h2>}
       </div>
     );
   }
