@@ -1,4 +1,5 @@
 class ProjectsController < ApplicationController
+  doorkeeper_for :all
   before_action :set_project, only: %i[ show edit update destroy ]
 
   # GET /projects or /projects.json
@@ -65,5 +66,10 @@ class ProjectsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def project_params
       params.require(:project).permit(:name, :description)
+    end
+
+    # Fetches current_user using doorkeeper
+    def current_user
+      @current_user ||= User.find(doorkeeper_token.resource_owner_id)
     end
 end

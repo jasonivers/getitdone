@@ -12,7 +12,7 @@ Doorkeeper.configure do
     # Put your resource owner authentication logic here.
     # Example implementation:
     # NEXT LINE ORIGINALLY COMMENTED OUT
-    # (Also, will need to change redirect destination in future)
+    # (Also, may need to change redirect destination in future)
     User.find_by(id: session[:user_id]) || redirect_to(new_user_session_url)
   end
 

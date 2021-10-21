@@ -11,5 +11,8 @@ const nativeAuth = new ClientOAuth2({
   clientSecret: GETITDONE_CLIENT_SECRET,
   accessTokenUri: NATIVE_TOKEN_URI,
   authorizationUri: NATIVE_AUTH_URI,
+  redirectUri: GETITDONE_CLIENT_CALLBACK,
   //scopes: [],
 });
+
+// Need to get token
