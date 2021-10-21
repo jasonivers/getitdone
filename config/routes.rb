@@ -22,5 +22,5 @@ Rails.application.routes.draw do
 
   #Will need to cordon off a /api (or similar) section of routes before the "get '*all'" declaration as applicable
   root 'application#index'
-  get '*all', to: 'application#index'
+  get 'app(/*all)', to: 'application#index'
 end

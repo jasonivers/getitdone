@@ -5,3 +5,18 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+# NEEDS CHANGED FOR PRODUCTION
+# Wait, does this even work with pg since db:setup won't be ran? Commenting out for now
+=begin
+client_app = Doorkeeper::Application.create!(
+  name: 'getitdone',
+  redirect_uri: 'http://localhost:3000/app/oauth_callback',
+)
+
+puts 'Client Data: '
+puts "name: #{client_app.name}"
+puts "redirect_uri: #{client_app.redirect_uri}"
+puts "uid: #{client_app.uid}"
+puts "secret: #{client_app.secret}"
+=end
