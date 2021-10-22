@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :documents
   resources :notes
   resources :memberships
   resources :tasks

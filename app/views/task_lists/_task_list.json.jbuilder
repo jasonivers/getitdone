@@ -4,7 +4,7 @@ json.project task_list.project
 json.tasks task_list.tasks do |task|
     json.partial! partial: 'tasks/task', locals: {task: task}
 end
-json.memberships project.memberships do |membership|
+json.memberships task_list.memberships do |membership|
     json.partial! partial: 'memberships/membership', locals: {membership: membership}
 end
 json.url task_list_url(task_list, format: :json)
