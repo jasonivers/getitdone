@@ -1,5 +1,5 @@
 class ProjectsController < ApplicationController
-  doorkeeper_for :all
+  #doorkeeper_for :all
   before_action :set_project, only: %i[ show edit update destroy ]
 
   # GET /projects or /projects.json
@@ -69,7 +69,7 @@ class ProjectsController < ApplicationController
     end
 
     # Fetches current_user using doorkeeper
-    def current_user
-      @current_user ||= User.find(doorkeeper_token.resource_owner_id)
-    end
+    #def current_user
+      #@current_user ||= User.find(doorkeeper_token.resource_owner_id)
+    #end
 end

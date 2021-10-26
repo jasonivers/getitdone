@@ -13,7 +13,8 @@ Doorkeeper.configure do
     # Example implementation:
     # NEXT LINE ORIGINALLY COMMENTED OUT
     # (Also, may need to change redirect destination in future)
-    User.find_by(id: session[:user_id]) || redirect_to(new_user_session_url)
+    #User.find_by(id: session[:user_id]) || redirect_to(new_user_session_url)
+    current_user || warden.authenticate!(scope: :user)
   end
 
   # If you didn't skip applications controller from Doorkeeper routes in your application routes.rb
@@ -31,6 +32,11 @@ Doorkeeper.configure do
   #     redirect_to sign_in_url
   #   end
   # end
+
+  # DEV ONLY CODE CHANGE FOR PROD!!!!!
+  admin_authenticator do
+    current_user || warden.authenticate!(scope: :user)
+  end
 
   # You can use your own model classes if you need to extend (or even override) default
   # Doorkeeper models such as `Application`, `AccessToken` and `AccessGrant.

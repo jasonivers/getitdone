@@ -1,5 +1,6 @@
 import * as React from 'react';
 import axios from 'axios';
+const ClientOAuth2 = require('client-oauth2');
 
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
@@ -39,7 +40,7 @@ export default function SignIn() {
       },
     })
     .then((response) => {
-      console.log(response);
+      console.log("signin response", response);
     })
     .catch((error) => {
       console.log(error);

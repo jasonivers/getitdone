@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   end
   use_doorkeeper
   devise_for :users
+=begin
   devise_scope :user do
     authenticated :user do
       root 'projects#index', as: :authenticated_root
@@ -18,9 +19,10 @@ Rails.application.routes.draw do
       root 'devise/sessions#new', as: :unauthenticated_root
     end
   end
+=end
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 
   #Will need to cordon off a /api (or similar) section of routes before the "get '*all'" declaration as applicable
-  root 'application#index'
+  root to: 'application#index'
   get 'app(/*all)', to: 'application#index'
 end
